@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feri.pay_api.mapper.PayrcodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.feri.pay_api.entity.Payrcode">
+        <id column="id" property="id" />
+        <result column="poid" property="poid" />
+        <result column="qrcode" property="qrcode" />
+        <result column="hours" property="hours" />
+        <result column="createtime" property="createtime" />
+        <result column="flag" property="flag" />
+    </resultMap>
+    <select id="selectCount" resultType="long">
+        select COUNT(*) from payrcode
+    </select>
+    <select id="selectByPage" resultType="com.feri.pay_api.entity.Payrcode">
+        select * from payrcode order by createtime desc limit #{index},#{count}
+    </select>
+    <insert id="save">
+        insert into payrcode(poid,qrcode,hours,createtime,flag) values(#{poid},#{qrcode},#{hours},now(),1);
+    </insert>
+    <select id="selectSingle" resultType="com.feri.pay_api.entity.Payrcode">
+        select * from payrcode where id=#{id};
+    </select>
+</mapper>

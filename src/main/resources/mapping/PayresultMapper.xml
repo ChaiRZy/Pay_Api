@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feri.pay_api.mapper.PayresultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.feri.pay_api.entity.Payresult">
+        <id column="id" property="id" />
+        <result column="oid" property="oid" />
+        <result column="type" property="type" />
+        <result column="flag" property="flag" />
+        <result column="createtime" property="createtime" />
+        <result column="paytime" property="paytime" />
+    </resultMap>
+    <select id="selectCount" resultType="long">
+        select COUNT(*) from payresult
+    </select>
+    <select id="selectByPage" resultType="com.feri.pay_api.entity.Payrcode">
+        select * from payresult order by paytime desc limit #{index},#{count}
+    </select>
+    <insert id="save">
+        insert into payresult(oid,type,flag,createtime,paytime) values(#{oid},#{type},1,now(),null);
+    </insert>
+    <update id="updateFlag">
+        update payresult set flag=#{flag},createtime=now() where oid=#{oid}
+    </update>
+    <select id="selectSingle" resultType="com.feri.pay_api.entity.Payresult">
+        select * from payresult where oid=#{oid};
+    </select>
+</mapper>
